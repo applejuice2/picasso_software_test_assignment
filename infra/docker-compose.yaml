@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+      - ../scripts/data/police-department-calls-for-service.csv/:/var/lib/postgresql/police-department-calls-for-service.csv/
+    ports:
+      - "6101:6101"
+    env_file:
+      - ./.env
+    command:
+      - "postgres"
+      - "-c"
+      - "port=6101"
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+    depends_on:
+      - db
+  web:
+    build: ../sf_police_requests
+    restart: always
+    volumes:
+      - static_value:/app/static/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    env_file:
+      - ./.env
+volumes: 
+  postgres:
+  static_value:
