@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from context_manager.program_time import ProgramExecutionTime
 
-env_path = os_path.join(path[0], '..', 'infra','.env')
+env_path = os_path.join(path[0], '..', 'infra', '.env')
 load_dotenv(env_path)
 
 DB_HOST = getenv('HOST_ADRESS')
@@ -102,7 +102,7 @@ def main():
                 DB_NAME,
                 POSTGRES_USER,
                 POSTGRES_PASSWORD
-                )
+            )
             connection = connect_to_db(host, port, name, user, password)
             connection = create_table(connection)
 

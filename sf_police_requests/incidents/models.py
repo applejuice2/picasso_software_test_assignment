@@ -1,9 +1,10 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
 
+
 class Incident(models.Model):
     id = models.PositiveIntegerField(
-        primary_key=True, 
+        primary_key=True,
         validators=[MaxValueValidator(999999999)],
     )
     original_crime_type_name = models.CharField(
@@ -42,4 +43,3 @@ class Incident(models.Model):
 
     class Meta:
         ordering = ['id']
-

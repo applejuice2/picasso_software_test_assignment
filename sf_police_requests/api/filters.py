@@ -7,6 +7,7 @@ from .fields import CustomDateRangeField
 class CustomDateRangeFilter(DateFromToRangeFilter):
     field_class = CustomDateRangeField
 
+
 class ReportDateFilter(FilterSet):
     date = CustomDateRangeFilter(field_name='report_date')
 

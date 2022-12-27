@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from context_manager.program_time import ProgramExecutionTime
 
-env_path = os_path.join(path[0], '..', 'infra','.env')
+env_path = os_path.join(path[0], '..', 'infra', '.env')
 load_dotenv(env_path)
 
 DB_HOST = getenv('HOST_ADRESS')
@@ -82,9 +82,11 @@ def import_csv_to_db(connection, path_to_csv):
             cursor.execute(f"""SELECT COUNT(*)
                                FROM {TABLE_NAME};""")
 
-            imported_number_of_records = cursor.fetchone()[0] - start_number_of_records
+            imported_number_of_records = (cursor.fetchone()[0]
+                                          - start_number_of_records)
         logger.info('CSV-файл импортирован в БД успешно. '
-                    f'Количество созданных записей: {imported_number_of_records}')
+                    'Количество созданных записей: '
+                    f'{imported_number_of_records}')
         return connection
     except Exception as error:
         raise Exception(f'Ошибка при импорте CSV-файла в таблицу: {error}')
@@ -101,7 +103,7 @@ def main():
                 DB_NAME,
                 POSTGRES_USER,
                 POSTGRES_PASSWORD
-                )
+            )
             connection = connect_to_db(host, port, name, user, password)
             connection = import_csv_to_db(connection, PATH_TO_CSV)
 
